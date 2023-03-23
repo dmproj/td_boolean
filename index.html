@@ -7,13 +7,14 @@
   <title>Document</title>
 </head>
 <body>
-  <div contentEditable id="elem">Click and <b>edit</b>, please</div>
+  <div contentEditable id="highlight-demo">Click and <b>edit</b>, please</div>
 
 <script>
-  const elem = document.querySelector('#elem')
+  //const elem = document.querySelector('#elem')
   let observer = new MutationObserver(mutations => {
 
 for(let mutation of mutations) {
+  console.log(mutation, mutations)
   // examine new nodes, is there anything to highlight?
 
   for(let node of mutation.addedNodes) {
