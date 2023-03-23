@@ -1,43 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <div contentEditable id="highlight-demo">Click and <b>edit</b>, please</div>
-
-<script>
-  //const elem = document.querySelector('#elem')
-  let observer = new MutationObserver(mutations => {
-
-for(let mutation of mutations) {
-  console.log(mutation, mutations)
-  // examine new nodes, is there anything to highlight?
-
-  for(let node of mutation.addedNodes) {
-    // we track only elements, skip other nodes (e.g. text nodes)
-    if (!(node instanceof HTMLElement)) continue;
-
-    // check the inserted element for being a code snippet
-    if (node.matches('pre[class*="language-"]')) {
-      Prism.highlightElement(node);
-    }
-
-    // or maybe there's a code snippet somewhere in its subtree?
-    for(let elem of node.querySelectorAll('pre[class*="language-"]')) {
-      Prism.highlightElement(elem);
-    }
-  }
+<style>
+.slidecontainer {
+  width: 100%;
 }
 
-});
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #ddd;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
 
-let demoElem = document.getElementById('highlight-demo');
+.slider:hover {
+  opacity: 1;
+}
 
-observer.observe(demoElem, {childList: true, subtree: true});
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>Range Slider</h1>
+
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+</div>
+
+<p>Value: <span id="demo"></span></p>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
 </script>
+
 </body>
 </html>
