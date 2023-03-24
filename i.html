@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .highlight {
+  background-color: yellow;
+}
+
+  </style>
+</head>
+<body>
+  
+  <div contenteditable="true" id="editable-div">
+    <p>Select some text and click the button to highlight it!</p>
+  </div>
+  <button id="highlight-btn">Highlight selected text</button>
+<script>
+  // Get the editable div and the highlight button
+const editableDiv = document.getElementById('editable-div');
+const highlightBtn = document.getElementById('highlight-btn');
+
+// Add a click event listener to the highlight button
+highlightBtn.addEventListener('click', function() {
+  // Get the current selection
+  const selection = window.getSelection();
+  // Check if the selection is inside the editable div
+  if (selection.rangeCount && editableDiv.contains(selection.getRangeAt(0).commonAncestorContainer)) {
+    // Get the range of the selection
+    const range = selection.getRangeAt(0);
+    // Create a span element to hold the highlight
+    const highlight = document.createElement('span');
+    highlight.classList.add('highlight');
+    // Wrap the range in the highlight element
+    range.surroundContents(highlight);
+  }
+});
+
+</script>  
+</body>
+</html>
